@@ -10,12 +10,16 @@
 		<p>Plan hangouts with friends, share memories, and stay connected.</p>
 
 		<h2>Upcoming plans</h2>
-		<ul id="plans-list">
-			<li>Movie night</li>
-			<li>Food meetup</li>
+		<p id="empty-plans-message">No hangout confirmed yet.</p>
+		<ul id="plans-list"></ul>
+			<!-- <li>Movie night</li>
+			<li>Food meetup</li> -->
 		</ul>
 		<h2>Suggest a hangout</h2>
 		<form>
+			<label for="idea-description">Details (optional)</label>
+			<textarea id="idea-description" name="description"
+			rows="3"></textarea>
 			<label for="idea">Hangout idea</label>
 			<input id="idea" name="idea" type="text">
 			<button type="submit">Add idea</button>
@@ -30,11 +34,6 @@
 					</tr>
 				</thead>
 				<tbody id="ideas-body">
-					<tr>
-						<td>Bowling</td>
-						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0</td>
-						<td><button type="button">I'm intrested</button></td>
-					</tr>
 				</tbody>
 			</table>
 
