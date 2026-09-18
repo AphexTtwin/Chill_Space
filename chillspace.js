@@ -11,7 +11,7 @@ form.addEventListener("submit", function (event) {
 		return;
 	}
 	const description = descriptionInput.value.trim();
-	console.log(description);
+	// console.log(description);
 
 	// const planItem = document.createElement("li");
 	// planItem.textContent = idea;
@@ -36,6 +36,45 @@ form.addEventListener("submit", function (event) {
 	planButton.type = "button";
 	planButton.textContent = "Plan it";
 	ideaDetails.append(planButton);
+
+	const planningArea = document.createElement("div");
+	planningArea.hidden = true;
+
+	const dateLabel = document.createElement("label");
+	dateLabel.textContent = "Date and time: ";
+
+	const dateInput = document.createElement("input");
+	dateInput.type = "datetime-local";
+
+	dateInput.required = true;
+	const confirmButton = document.createElement("button");
+	confirmButton.type = "button";
+	confirmButton.textContent = "Confirm plan";
+	planningArea.append(confirmButton);
+
+	confirmButton.addEventListener("click", function() {
+		dateInput.setCustomValidity("");
+		if (!dateInput.reportValidity())
+			return ;
+		const selectedDate = new Date(dateInput.value);
+		const now = new Date();
+
+		if (selectedDate <= now) {
+			dateInput.setCustomValidity("Choose a future date and time");
+			dateInput.reportValidity();
+			return ;
+		}
+	    console.log(dateInput.value);
+	});
+
+	dateLabel.append(dateInput);
+	planningArea.append(dateLabel);
+	ideaDetails.append(planningArea);
+
+	planButton.addEventListener("click", function() {
+		planningArea.hidden = false;
+		dateInput.focus();
+	});
 
 	ideaCell.append(ideaDetails);
 
