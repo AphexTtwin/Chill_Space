@@ -4,41 +4,64 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Chill Space</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<link
+		href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
+		rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="./chillspace.css">
 </head>
 
 <body>
-	<h1>Chill Space</h1>
-	<p>Plan hangouts with friends, share memories, and stay connected.</p>
+	<header class="site-header">
+		<h1>Chill <em>Space</em></h1>
+		<p>Plan hangouts with friends, share memories, and stay connected.</p>
+	</header>
 
-	<h2>Upcoming plans</h2>
-	<p id="empty-plans-message">No hangout confirmed yet.</p>
-	<ul id="plans-list"></ul>
-	<h2>Suggest a hangout</h2>
-	<form>
-		<label for="idea">Hangout idea</label>
-		<input id="idea" name="idea" type="text">
+	<section class="upcoming-plans" aria-labelledby="upcoming-heading">
+		<h2 id="upcoming-heading">Upcoming plans</h2>
+		<p id="empty-plans-message">No hangout confirmed yet.</p>
+		<ul id="plans-list"></ul>
+	</section>
+	<div class="planning-grid">
+		<section class="planning-panel suggestion-panel" aria-labelledby="suggestion-heading">
 
-		<details id="description-area">
-			<summary>Add details (optional)</summary>
+			<h2 id="suggestion-heading">Suggest a hangout</h2>
 
-			<label for="idea-description">Details</label>
-			<textarea id="idea-description" name="description" rows="3"></textarea>
-		</details>
+			<form>
+				<label for="idea">Hangout idea</label>
+				<input id="idea" name="idea" type="text">
 
-		<button type="submit">Add idea</button>
-	</form>
-	<h2>Hangout ideas</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>Idea</th>
-				<th>Intrested</th>
-				<th>Your action</th>
-			</tr>
-		</thead>
-		<tbody id="ideas-body">
-		</tbody>
-	</table>
+				<details id="description-area">
+					<summary>Add details (optional)</summary>
+
+					<label for="idea-description">Details</label>
+					<textarea id="idea-description" name="description" rows="3"></textarea>
+				</details>
+
+				<button type="submit">Add idea</button>
+			</form>
+		</section>
+
+		<section class="planning-panel ideas-panel" aria-labelledby="ideas-heading">
+
+			<h2 id="ideas-heading">Hangout ideas</h2>
+
+			<table>
+				<thead>
+					<tr>
+						<th>Idea</th>
+						<th>Interested</th>
+						<th>Your action</th>
+					</tr>
+				</thead>
+
+				<tbody id="ideas-body"></tbody>
+			</table>
+		</section>
+	</div>
 
 	<script src="./chillspace.js"></script>
 </body>

@@ -6,6 +6,19 @@ const planList = document.querySelector("#plans-list");
 const emptyPlansMessage = document.querySelector("#empty-plans-message");
 const descriptionArea = document.querySelector("#description-area");
 
+
+const planItem = document.createElement("li");
+planItem.className = "plan-item";
+
+const planDate = document.createElement("p");
+planDate.className = "plan-date";
+
+const attendanceText = document.createElement("p");
+attendanceText.className = "attendance-status";
+
+const attendanceButton = document.createElement("button");
+attendanceButton.className = "attendance-button";
+
 form.addEventListener("submit", function (event) {
 	event.preventDefault();
 	const idea = ideaInput.value.trim();
@@ -38,7 +51,7 @@ form.addEventListener("submit", function (event) {
 	const planButton = document.createElement("button");
 	planButton.type = "button";
 	planButton.textContent = "Plan it";
-	ideaDetails.append(planButton);
+	// ideaDetails.append(planButton); ...///--hna dart changes
 
 	const planningArea = document.createElement("div");
 	planningArea.hidden = true;
@@ -55,19 +68,19 @@ form.addEventListener("submit", function (event) {
 	confirmButton.textContent = "Confirm plan";
 	planningArea.append(confirmButton);
 
-	confirmButton.addEventListener("click", function() {
+	confirmButton.addEventListener("click", function () {
 		dateInput.setCustomValidity("");
 		if (!dateInput.reportValidity())
-			return ;
+			return;
 		const selectedDate = new Date(dateInput.value);
 		const now = new Date();
 
 		if (selectedDate <= now) {
 			dateInput.setCustomValidity("Choose a future date and time");
 			dateInput.reportValidity();
-			return ;
+			return;
 		}
-	    // console.log(dateInput.value);
+		const ideaPosition = ideaRow.getBoundingClientRect();
 		const planItem = document.createElement("li");
 		const planDate = document.createElement("p");
 
@@ -86,31 +99,59 @@ form.addEventListener("submit", function (event) {
 		attendanceButton.type = "button";
 		attendanceButton.textContent = "I'm going";
 
-		attendanceButton.addEventListener("click", function() {
+		attendanceButton.addEventListener("click", function () {
 			isGoing = !isGoing;
-			if (isGoing)
-			{
+			if (isGoing) {
 				attendanceText.textContent = "Going: 1 — You're going ✓";
-       			attendanceButton.textContent = "Can't make it";
+				attendanceButton.textContent = "Can't make it";
 			}
-			else
-			{
+			else {
 				attendanceText.textContent = "Going: 0";
-        		attendanceButton.textContent = "I'm going";
+				attendanceButton.textContent = "I'm going";
 			}
 		});
 		planItem.append(attendanceText, attendanceButton);
-		planList.append(planItem);
 
+		planList.append(planItem);
 		emptyPlansMessage.hidden = true;
+
+		const planPosition = planItem.getBoundingClientRect();
+
+		const distanceX = ideaPosition.left - planPosition.left;
+		const distanceY = ideaPosition.top - planPosition.top;
+
 		ideaRow.remove();
+
+		const reduceMotion = window.matchMedia(
+			"(prefers-reduced-motion: reduce)"
+		).matches;
+
+		if (!reduceMotion && typeof planItem.animate === "function") {
+			planItem.animate(
+				[
+					{
+						transform: `translate(${distanceX}px, ${distanceY}px)`,
+						opacity: 0.35
+					},
+					{
+						transform: "translate(0, 0)",
+						opacity: 1
+					}
+				],
+				{
+					duration: 520,
+					easing: "cubic-bezier(0.16, 1, 0.3, 1)"
+				}
+			);
+		}
 	});
 
 	dateLabel.append(dateInput);
 	planningArea.append(dateLabel);
 	ideaDetails.append(planningArea);
 
-	planButton.addEventListener("click", function() {
+	planButton.addEventListener("click", function () {
+		ideaDetails.open = true;
 		planningArea.hidden = false;
 		dateInput.focus();
 	});
@@ -125,12 +166,11 @@ form.addEventListener("submit", function (event) {
 	const interestedButton = document.createElement("button");
 	interestedButton.type = "button";
 	interestedButton.textContent = "I'm intrested";
-	actionCell.append(interestedButton);
+	actionCell.append(interestedButton, planButton);
 
 	let isIntrested = false;
-	interestedButton.addEventListener("click", function() {
-		if (isIntrested)
-		{
+	interestedButton.addEventListener("click", function () {
+		if (isIntrested) {
 			isIntrested = false;
 			interestedCell.textContent = "0";
 			interestedButton.textContent = "I'm intrested";
