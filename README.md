@@ -54,3 +54,42 @@ The label's `for` value must match the input's `id`. An `id` should be unique on
 ## Attributes
 
 Attributes add information inside an opening tag: `type="text"` chooses an input type; `id="idea"` names an element; `for="idea"` connects a label to it.
+
+## Tables and expandable details
+
+- `<table>` contains structured rows and columns.
+- `<tr>` creates a row, `<th>` creates a heading cell, and `<td>` creates a data cell.
+- `<thead>` groups column headings; `<tbody>` groups the changing idea rows.
+- `<details>` creates an expandable section and `<summary>` creates its clickable title.
+- The `.open` property is `true` when `<details>` is open and `false` when closed.
+
+## JavaScript and the page
+
+- `const` creates a variable that will not be reassigned; `let` creates one that can change.
+- `document.querySelector("#idea")` finds the element whose `id` is `idea`.
+- `.value` reads an input; `.trim()` removes unwanted spaces around its text.
+- `addEventListener("submit", ...)` or `addEventListener("click", ...)` reacts to a user action.
+- `event.preventDefault()` stops a form from refreshing the page.
+- `document.createElement()` creates a new HTML element from JavaScript.
+- `.textContent` changes an element's visible text.
+- `.append()` places elements inside another element; `.remove()` removes an element.
+- `if`, `else`, and `return` control which instructions run.
+- A boolean stores `true` or `false`; `!value` flips it.
+
+## Dates and validation
+
+- `new Date()` creates a Date object representing the current moment.
+- `new Date(dateInput.value)` converts the selected date text into a Date object.
+- `datetime-local` lets someone choose a local date and time.
+- `required`, `reportValidity()`, and `setCustomValidity()` help reject missing or past dates.
+- `toLocaleString()` formats a Date for the browser's language and time zone.
+
+## Current Chill Space flow
+
+1. A friend suggests a title and optional details.
+2. Other friends can mark themselves interested.
+3. The organizer chooses a future date and confirms the plan.
+4. The idea moves into Upcoming plans.
+5. Each friend can mark themselves going or withdraw.
+
+The current version stores everything only in the open browser page. Refreshing clears it. Shared data and accounts will come with the backend type shii haha.

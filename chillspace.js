@@ -2,6 +2,9 @@ const form = document.querySelector("form");
 const ideaInput = document.querySelector("#idea");
 const descriptionInput = document.querySelector("#idea-description");
 const ideasBody = document.querySelector("#ideas-body");
+const planList = document.querySelector("#plans-list");
+const emptyPlansMessage = document.querySelector("#empty-plans-message");
+const descriptionArea = document.querySelector("#description-area");
 
 form.addEventListener("submit", function (event) {
 	event.preventDefault();
@@ -64,7 +67,43 @@ form.addEventListener("submit", function (event) {
 			dateInput.reportValidity();
 			return ;
 		}
-	    console.log(dateInput.value);
+	    // console.log(dateInput.value);
+		const planItem = document.createElement("li");
+		const planDate = document.createElement("p");
+
+		planDate.textContent = selectedDate.toLocaleString();
+
+		planningArea.remove();
+		planButton.remove();
+
+		planItem.append(ideaDetails, planDate);
+
+		let isGoing = false;
+		const attendanceText = document.createElement("p");
+		attendanceText.textContent = "Going: 0"
+
+		const attendanceButton = document.createElement("button");
+		attendanceButton.type = "button";
+		attendanceButton.textContent = "I'm going";
+
+		attendanceButton.addEventListener("click", function() {
+			isGoing = !isGoing;
+			if (isGoing)
+			{
+				attendanceText.textContent = "Going: 1 — You're going ✓";
+       			attendanceButton.textContent = "Can't make it";
+			}
+			else
+			{
+				attendanceText.textContent = "Going: 0";
+        		attendanceButton.textContent = "I'm going";
+			}
+		});
+		planItem.append(attendanceText, attendanceButton);
+		planList.append(planItem);
+
+		emptyPlansMessage.hidden = true;
+		ideaRow.remove();
 	});
 
 	dateLabel.append(dateInput);
@@ -78,7 +117,7 @@ form.addEventListener("submit", function (event) {
 
 	ideaCell.append(ideaDetails);
 
-	const interestedCell = document.createElement("tr");
+	const interestedCell = document.createElement("td");
 
 	interestedCell.textContent = "0";
 
@@ -107,5 +146,6 @@ form.addEventListener("submit", function (event) {
 	ideasBody.append(ideaRow);
 
 	form.reset();
+	descriptionArea.open = false;
 	ideaInput.focus();
 });

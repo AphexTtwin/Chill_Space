@@ -1,42 +1,46 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Chill Space</title>
-	</head>
 
-	<body>
-		<h1>Chill Space</h1>
-		<p>Plan hangouts with friends, share memories, and stay connected.</p>
+<head>
+	<meta charset="UTF-8">
+	<title>Chill Space</title>
+</head>
 
-		<h2>Upcoming plans</h2>
-		<p id="empty-plans-message">No hangout confirmed yet.</p>
-		<ul id="plans-list"></ul>
-			<!-- <li>Movie night</li>
-			<li>Food meetup</li> -->
-		</ul>
-		<h2>Suggest a hangout</h2>
-		<form>
-			<label for="idea-description">Details (optional)</label>
-			<textarea id="idea-description" name="description"
-			rows="3"></textarea>
-			<label for="idea">Hangout idea</label>
-			<input id="idea" name="idea" type="text">
-			<button type="submit">Add idea</button>
-		</form>
-		<h2>Hangout ideas</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Idea</th>
-						<th>Intrested</th>
-						<th>Your action</th>
-					</tr>
-				</thead>
-				<tbody id="ideas-body">
-				</tbody>
-			</table>
+<body>
+	<h1>Chill Space</h1>
+	<p>Plan hangouts with friends, share memories, and stay connected.</p>
 
-		<script src="./chillspace.js"></script>
-	</body>
+	<h2>Upcoming plans</h2>
+	<p id="empty-plans-message">No hangout confirmed yet.</p>
+	<ul id="plans-list"></ul>
+	<h2>Suggest a hangout</h2>
+	<form>
+		<label for="idea">Hangout idea</label>
+		<input id="idea" name="idea" type="text">
+
+		<details id="description-area">
+			<summary>Add details (optional)</summary>
+
+			<label for="idea-description">Details</label>
+			<textarea id="idea-description" name="description" rows="3"></textarea>
+		</details>
+
+		<button type="submit">Add idea</button>
+	</form>
+	<h2>Hangout ideas</h2>
+	<table>
+		<thead>
+			<tr>
+				<th>Idea</th>
+				<th>Intrested</th>
+				<th>Your action</th>
+			</tr>
+		</thead>
+		<tbody id="ideas-body">
+		</tbody>
+	</table>
+
+	<script src="./chillspace.js"></script>
+</body>
+
 </html>
