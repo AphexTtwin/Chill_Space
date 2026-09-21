@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
 	<meta charset="UTF-8">
@@ -18,6 +18,17 @@
 	<header class="site-header">
 		<h1>Chill <em>Space</em></h1>
 		<p>Plan hangouts with friends, share memories, and stay connected.</p>
+		<label class="theme-switch" for="theme-toggle">
+			<span class="theme-switch__caption" aria-hidden="true">Atmosphere</span>
+			<input class="theme-switch__input" id="theme-toggle" type="checkbox" role="switch"
+				aria-label="Night mode" checked>
+			<span class="theme-switch__scene" aria-hidden="true">
+				<span class="theme-switch__stars"></span>
+				<span class="theme-switch__cloud theme-switch__cloud--back"></span>
+				<span class="theme-switch__cloud theme-switch__cloud--front"></span>
+				<span class="theme-switch__orb"></span>
+			</span>
+		</label>
 	</header>
 
 	<section class="upcoming-plans" aria-labelledby="upcoming-heading">
@@ -41,7 +52,7 @@
 					<textarea id="idea-description" name="description" rows="3"></textarea>
 				</details>
 
-				<button type="submit">Add idea</button>
+				<button type="submit"><span>Add idea</span></button>
 			</form>
 		</section>
 

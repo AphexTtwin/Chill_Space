@@ -1,3 +1,78 @@
+const themeToggle = document.querySelector("#theme-toggle");
+const savedTheme = localStorage.getItem("chillspace-theme");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+	? "dark"
+	: "light";
+const startingTheme = savedTheme || systemTheme;
+
+function applyTheme(theme) {
+	document.documentElement.dataset.theme = theme;
+	themeToggle.checked = theme === "dark";
+}
+
+applyTheme(startingTheme);
+
+themeToggle.addEventListener("change", function () {
+	const selectedTheme = themeToggle.checked ? "dark" : "light";
+
+	applyTheme(selectedTheme);
+	localStorage.setItem("chillspace-theme", selectedTheme);
+});
+
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const precisePointer = window.matchMedia("(pointer: fine)");
+
+function trackPointerLight(element, xProperty, yProperty) {
+	if (!element) {
+		return;
+	}
+
+	let bounds;
+	let nextX = 0;
+	let nextY = 0;
+	let animationFrame;
+
+	function paintLight() {
+		element.style.setProperty(xProperty, `${nextX.toFixed(2)}px`);
+		element.style.setProperty(yProperty, `${nextY.toFixed(2)}px`);
+		animationFrame = undefined;
+	}
+
+	element.addEventListener("pointerenter", function () {
+		bounds = element.getBoundingClientRect();
+	});
+
+	element.addEventListener("pointermove", function (event) {
+		if (!bounds) {
+			return;
+		}
+
+		nextX = event.clientX - bounds.left;
+		nextY = event.clientY - bounds.top;
+
+		if (animationFrame === undefined) {
+			animationFrame = requestAnimationFrame(paintLight);
+		}
+	}, { passive: true });
+
+	element.addEventListener("pointerleave", function () {
+		if (animationFrame !== undefined) {
+			cancelAnimationFrame(animationFrame);
+			animationFrame = undefined;
+		}
+
+		bounds = undefined;
+		element.style.setProperty(xProperty, "50%");
+		element.style.setProperty(yProperty, "50%");
+	});
+}
+
+if (!reducedMotion.matches && precisePointer.matches) {
+	const primaryButton = document.querySelector(".suggestion-panel button[type='submit']");
+
+	trackPointerLight(primaryButton, "--button-light-x", "--button-light-y");
+}
+
 const form = document.querySelector("form");
 const ideaInput = document.querySelector("#idea");
 const descriptionInput = document.querySelector("#idea-description");
